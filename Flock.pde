@@ -3,9 +3,11 @@ class Flock {
   float separationWeight = 80;
   float cohesionWeight = 1;
   float alignmentWeight = 1/200;
+  color col;
     
   Flock(int s) {
     boids = new Boid[s];
+    col = color(random(255), random(255), random(255));
     
     for (int i = 0; i < boids.length; i++) {
       boids[i] = new Boid();
@@ -91,7 +93,7 @@ class Flock {
   
   void show() {
     for (int i = 0; i < boids.length; i++) {
-      boids[i].show();
+      boids[i].show(col);
     }
   }
 }

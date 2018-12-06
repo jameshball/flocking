@@ -12,10 +12,14 @@ class Boid {
   Boid() {
     vel = new PVector(random(-1, 1), random(-1, 1));
     pos = new PVector(random(width), random(height));
-    size = random(2, 4);
-    nRadius = random(50, 125);
-    sRadius = random(15, 40);
+    size = random(1, 3);
+    nRadius = 75;
+    sRadius = 30;
     maxSpeed = random(1, 3);
+    //size = random(2, 4);
+    //nRadius = random(50, 125);
+    //sRadius = random(15, 40);
+    //maxSpeed = random(1, 3);
   }
   
   // PVector d is the desired target to steer towards.
@@ -45,8 +49,8 @@ class Boid {
     }
   }
   
-  void show() {
-    fill(255);
+  void show(color c) {
+    fill(c);
     // Translates the canvas to the position of the boid and then draws a triangle that is rotated according to the direction the boid is facing in.
     pushMatrix();
     translate(pos.x, pos.y);
