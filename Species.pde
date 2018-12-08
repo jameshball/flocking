@@ -7,14 +7,11 @@ class Species {
   Species(int n, int s) {
     flocks = new Flock[n];
     
-    // Change colour mode and generate random value for hue, between 0 and 0.75.
-    // Values greater than 0.75 looked very similar with multiple flocks, hence the limit.
     colorMode(HSB, 1.0);
-    float r = random(0.75);
     
     for (int i = 0; i < n; i++) {
-      // Equally space the hue values for each flock.
-      flocks[i] = new Flock(s, color(r + i*(1/(float)n), 1, 1));
+      // Generate random hue values, and semi-random brightness values for each flock.
+      flocks[i] = new Flock(s, color(random(1), 1, random(0.75, 1)));
     }
     
     colorMode(RGB, 255);

@@ -4,12 +4,14 @@ class Boid {
   float maxSpeed;
   // Size of triangle
   float size;
+  int[] cell;
   
   Boid() {
     vel = new PVector(random(-1, 1), random(-1, 1));
     pos = new PVector(random(width), random(height));
     size = 3;
     maxSpeed = random(1, 3);
+    cell = getCell();
   }
   
   // PVector d is the desired target to steer towards.
@@ -27,18 +29,15 @@ class Boid {
   
   void update() {
     //steerTo(new PVector(mouseX, mouseY));
-    //bounds();
     vel.limit(maxSpeed);
     pos.add(vel);
     pos.x = (pos.x + width) % width;
     pos.y = (pos.y + height) % height;
   }
   
-  // If the boids go out of, or near, the bounds of the window, they will be encouraged to go back to the middle.
-  void bounds() {
-    if (pos.x < 20 || width - pos.x < 20 || pos.y < 20 || height - pos.y < 20) {
-      steerTo(new PVector(width/2, height/2));
-    }
+  int[] getCell() {
+    // Return the cell corresponding to the position the boid is currently in.
+    return new int[] { (int)(pos.x/neighbourRadius), (int)(pos.y/neighbourRadius) };
   }
   
   void show(color c) {
