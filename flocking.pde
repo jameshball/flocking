@@ -1,6 +1,7 @@
 import controlP5.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 
 ControlP5 cp5;
 Species s;
@@ -17,10 +18,11 @@ float cohesionWeight = 0.1;
 // These define how far the boids can see.
 float neighbourRadius = 130;
 float separationRadius = 30;
+float maxRadius = max(neighbourRadius, separationRadius);
 
 void settings() {
   // This just makes the width and height a multiple of the neighbourRadius.
-  size((int)((int)(w/(float)neighbourRadius)*neighbourRadius), (int)((int)(h/(float)neighbourRadius)*neighbourRadius), P2D);
+  size((int)((int)(w/(float)maxRadius)*maxRadius), (int)((int)(h/(float)maxRadius)*maxRadius), P2D);
 }
 
 void setup() {
@@ -33,15 +35,16 @@ void setup() {
   cp5.addSlider("neighbourRadius").setPosition(20, 110).setRange(1, 500);
   cp5.addSlider("separationRadius").setPosition(20, 140).setRange(1, 300);
   
-  s = new Species(1, 2500);
+  s = new Species(2, 1000);
+  s.flocks[0].boids[0].size = 5;
 }
 
 void draw() {
   background(41);
   s.update();
   s.show();
+  s.flocks[0].boids[0].show(color(255));
   
   text(frameRate, 20, 170);
-  text(width, 20, 200);
-  text(height, 20, 230);
+  text(width + "x" + height, 20, 200);
 }

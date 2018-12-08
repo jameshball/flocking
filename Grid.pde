@@ -15,25 +15,15 @@ class Grid {
     }
   }
   
-  // Move boid i from the old location, o, to the new location, n.
-  void move(int[] o, int[] n, Integer i) {
-    cells[o[0]][o[1]].remove(i);
-    cells[n[0]][n[1]].add(i);
-  }
-  
   class Cell {
-    ArrayList<Integer> list;
+    List<Integer> list;
     
     Cell() {
       list = new ArrayList<Integer>();
     }
     
-    void remove(Integer i) {
-      list.remove(i);
-    }
-    
-    void add(Integer i) {
-      list.add(i);
+    void add(int i) {
+      list.add(i); //<>//
     }
   }
 }

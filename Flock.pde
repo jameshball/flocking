@@ -2,7 +2,6 @@
 class Flock {
   Boid[] boids;
   color col;
-  float maxRadius = max(neighbourRadius, separationRadius);
   Grid grid;
   
   // Inputs the size of the flock and the colour.
@@ -75,19 +74,20 @@ class Flock {
   
   // Get the list of all potential neighbours of a particular boid.
   ArrayList<Integer> neighbours(int i) {
-    //Get the top left cell in the 3x3 grid.
-    int[] cell = new int[] { boids[i].cell[0] - 1, boids[i].cell[1] - 1 };
+    // This doesn't even do anything in particular. I don't know why this works.
+    int[] cell = new int[] { boids[i].cell[0] - 1, boids[i].cell[1] - 1};
     
-    ArrayList<Integer> neighbours = new ArrayList<Integer>();
+    ArrayList<Integer> n = new ArrayList<Integer>();
     
     // Using r, c here as i is already being used.
+    // If r and c are changed to different numbers, there are different behaviours. I don't know how this works...
     for (int r = 0; r < 3; r++) {
       for (int c = 0; c < 3; c++) {
-        neighbours.addAll(grid.cells[(grid.rows + cell[0] + r) % grid.rows][(grid.cols + cell[1] + c) % grid.cols].list);
+        n.addAll(grid.cells[(grid.rows + cell[0] + r) % grid.rows][(grid.cols + cell[1] + c) % grid.cols].list);
       }
     }
     
-    return neighbours;
+    return n;
   }
   
   // Update creates a new thread which applies the flocking bechaviours to each boid.
@@ -106,17 +106,12 @@ class Flock {
   class UpdateBoid implements Runnable {
     void run() {
       for (int i = 0; i < boids.length; i++) {
-        int[] cell = new int[] { boids[i].cell[0], boids[i].cell[1] };
-        ArrayList<Integer> neighbours = neighbours(i);
+        ArrayList<Integer> neighbours = new ArrayList<Integer>(neighbours(i));
     
         cohesion(i, neighbours);
         alignment(i, neighbours);
         separation(i, neighbours);
         boids[i].update();
-        
-        if (!(cell[0] == boids[i].cell[0] && cell[1] == boids[i].cell[1])) {
-          grid.move(cell, boids[i].cell, i);
-        }
       }
     }
   }

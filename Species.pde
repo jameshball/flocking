@@ -1,6 +1,5 @@
 // Class used for rendering multiple flocks on ths screen at once.
 class Species {
-  
   Flock[] flocks;
   
   // Inputs the number of 'species' or flocks, n, and the size of each flock, s.
