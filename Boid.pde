@@ -1,10 +1,6 @@
 class Boid {
   PVector pos;
   PVector vel;
-  // neighbour radius (specifies the radius at which the boid can see)
-  float nRadius;
-  // separation radius
-  float sRadius;
   float maxSpeed;
   // Size of triangle
   float size;
@@ -12,34 +8,30 @@ class Boid {
   Boid() {
     vel = new PVector(random(-1, 1), random(-1, 1));
     pos = new PVector(random(width), random(height));
-    size = random(1, 3);
-    nRadius = 75;
-    sRadius = 30;
+    size = 3;
     maxSpeed = random(1, 3);
-    //size = random(2, 4);
-    //nRadius = random(50, 125);
-    //sRadius = random(15, 40);
-    //maxSpeed = random(1, 3);
   }
   
   // PVector d is the desired target to steer towards.
   void steerTo(PVector d) {
     // Calculate the vector that points to the target.
     d.sub(pos);
+    float dist = d.mag();
     
-    if (d.mag() > 0) {
+    if (dist > 0) {
       // Normalise and scale the vector based on the distance to the target.
-      d.normalize();
-      d.mult(maxSpeed*(d.mag()/100));
-      vel.add(d);
+      d.normalize().mult(maxSpeed);
+      vel.add(d.sub(vel).limit(cohesionWeight));
     }
   }
   
   void update() {
     //steerTo(new PVector(mouseX, mouseY));
-    bounds();
+    //bounds();
     vel.limit(maxSpeed);
     pos.add(vel);
+    pos.x = (pos.x + width) % width;
+    pos.y = (pos.y + height) % height;
   }
   
   // If the boids go out of, or near, the bounds of the window, they will be encouraged to go back to the middle.
