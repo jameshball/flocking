@@ -2,6 +2,7 @@
 class Flock {
   Boid[] boids;
   color col;
+  float colShift = random(0.001, 0.01);
   Grid grid;
   
   // Inputs the size of the flock and the colour.
@@ -12,7 +13,7 @@ class Flock {
     grid = new Grid((int)(width/neighbourRadius), (int)(height/neighbourRadius));
     
     for (int i = 0; i < boids.length; i++) {
-      boids[i] = new Boid();
+      boids[i] = new Boid(grid.rows, grid.cols);
       grid.cells[boids[i].cell[0]][boids[i].cell[1]].add(i);
     }
   }
@@ -98,9 +99,20 @@ class Flock {
   }
   
   void show() {
+    colorMode(HSB, 1.0);
+    
+    float newHue = hue(col) + colShift;
+    
+    if (newHue > 1) {
+      newHue = 0;
+    }
+    
+    col = color(newHue, saturation(col), brightness(col));
     for (int i = 0; i < boids.length; i++) {
       boids[i].show(col);
     }
+    
+    colorMode(RGB, 255);
   }
   
   class UpdateBoid implements Runnable {

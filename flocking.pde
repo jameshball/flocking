@@ -7,8 +7,8 @@ ControlP5 cp5;
 Species s;
 
 // Approximate width and height.
-float w = 2000;
-float h = 1000;
+float w = 1600;
+float h = 900;
 
 // These define the strength of the flock's three behaviours.
 float separationWeight = 300;
@@ -35,7 +35,7 @@ void setup() {
   cp5.addSlider("neighbourRadius").setPosition(20, 110).setRange(1, 500);
   cp5.addSlider("separationRadius").setPosition(20, 140).setRange(1, 300);
   
-  s = new Species(2, 1000);
+  s = new Species(3, 2000);
   s.flocks[0].boids[0].size = 5;
 }
 

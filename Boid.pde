@@ -4,13 +4,14 @@ class Boid {
   float maxSpeed;
   // Size of triangle
   float size;
-  int[] cell = new int[] { (int)random(15), (int)random(7) };
+  int[] cell;
   
-  Boid() {
+  Boid(int x, int y) {
     vel = new PVector(random(-1, 1), random(-1, 1));
     pos = new PVector(random(width), random(height));
     size = 3;
     maxSpeed = random(1, 3);
+    cell = new int[] { (int)random(x), (int)random(y) };
   }
   
   // PVector d is the desired target to steer towards.
