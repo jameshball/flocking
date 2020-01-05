@@ -1,0 +1,2 @@
+Make the mouse a 'boid' so that boids can interact with it.
+Get a grid-based neighbour detection system actually working (i.e. understand how it works)
