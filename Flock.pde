@@ -1,14 +1,14 @@
 // Flock class used to manage multiple boids and draw them all on the screen at once.
 class Flock {
   Boid[] boids;
-  color col;
-  float colShift = random(0.001, 0.01);
+  color colour;
+  float colShift = random(0.001, 0.005);
   Grid grid;
   
   // Inputs the size of the flock and the colour.
-  Flock(int s, color col) {
+  Flock(int s, color colour) {
     boids = new Boid[s];
-    this.col = col;
+    this.colour = colour;
     
     grid = new Grid((int)(width/neighbourRadius), (int)(height/neighbourRadius));
     
@@ -101,15 +101,15 @@ class Flock {
   void show() {
     colorMode(HSB, 1.0);
     
-    float newHue = hue(col) + colShift;
+    float newHue = hue(colour) + colShift;
     
     if (newHue > 1) {
       newHue = 0;
     }
     
-    col = color(newHue, saturation(col), brightness(col));
+    colour = color(newHue, saturation(colour), brightness(colour));
     for (int i = 0; i < boids.length; i++) {
-      boids[i].show(col);
+      boids[i].show(colour);
     }
     
     colorMode(RGB, 255);

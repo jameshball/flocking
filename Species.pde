@@ -10,7 +10,7 @@ class Species {
     
     for (int i = 0; i < n; i++) {
       // Generate random hue values, and semi-random brightness values for each flock.
-      flocks[i] = new Flock(s, color(random(1), 1, random(0.75, 1)));
+      flocks[i] = new Flock(s, color(random(1), random(0.8, 1), random(0.75, 1)));
     }
     
     colorMode(RGB, 255);
