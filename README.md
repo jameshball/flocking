@@ -1,6 +1,8 @@
 # flocking
 Messing around with flocking behavioral algorithms - see https://en.wikipedia.org/wiki/Flocking_(behavior)
 
+You can see a live demo of the p5.js version here: https://www.doc.ic.ac.uk/~jhb119/
+
 I wanted to make this more efficient so I tried implementing space partitioning, which was going well, but mid-way through implementing it, the flocks still worked, when they really shouldn't have. I realised I wasn't even updating the grid reference the boids were in, but it still looked amazing.
 
 In short, I have genuinely no idea how this program works, outside of the standard cohesion, alignment, and separation part.
